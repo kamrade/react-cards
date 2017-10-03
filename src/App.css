@@ -2,3 +2,8 @@
   padding-top: 1rem;
   text-align: center;
   color: red; }
+
+.App .navigation .item {
+  padding-right: 0.5rem; }
+  .App .navigation .item.active {
+    color: #333; }

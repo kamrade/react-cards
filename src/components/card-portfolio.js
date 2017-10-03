@@ -18,7 +18,7 @@ class CardPortfolio extends Component {
   render() {
     return (
       <div>
-        <h1>Card Portfolio</h1>
+        <h2>Card Portfolio</h2>
         <CardsList cards={this.props.cards} />
       </div>
     );
