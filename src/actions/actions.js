@@ -7,6 +7,7 @@ export function setCards(cards) {
   }
 }
 
+// Вспомогательные функции
 export function fetchCards() {
   return dispatch => {
     fetch('/api/cards')

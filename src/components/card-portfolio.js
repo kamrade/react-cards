@@ -8,6 +8,9 @@ import CardsList from './cards-list';
 
 class CardPortfolio extends Component {
 
+  // Когда компонент отрендерился получаем все карты
+  // Карты сохраняются в redux store
+  // Потом мы их оттуда вынимаем с помощью mapStateToProps. См. ниже
   componentDidMount() {
     this.props.fetchCards();
   }
@@ -22,6 +25,7 @@ class CardPortfolio extends Component {
   }
 }
 
+// Просто проверка типов
 CardPortfolio.propTypes = {
   cards: PropTypes.array.isRequired,
   fetchCards: PropTypes.func.isRequired

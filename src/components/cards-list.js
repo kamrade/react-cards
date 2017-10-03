@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Компонент либо отрендеривает все карты,
+// либо показывает сообщение что карт в базе нет
 export default function CardsList({ cards }) {
 
   const emptyMessage = (
@@ -18,6 +20,7 @@ export default function CardsList({ cards }) {
   );
 }
 
+// Просто проверка типов
 CardsList.propTypes = {
   cards: PropTypes.array.isRequired
 }
