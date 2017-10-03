@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
+import { Link, Route } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
-import { Button } from 'reactstrap';
+import CardsPortfolio from './components/card-portfolio';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="header">
-          <h1>React</h1>
-          <Button color="primary" size="sm">Primary</Button>{' '}
-        </header>
+        <div className="container">
+          <header className="header">
+            <h1>React</h1>
+            <Link to="/">Home</Link>
+            <Link to="/games">Games</Link>
+          </header>
+          <Route exact path="/games" component={CardsPortfolio} />
+        </div>
       </div>
     );
   }
