@@ -12,9 +12,9 @@ class App extends Component {
           <header className="header">
             <h1>React</h1>
             <Link to="/">Home</Link>
-            <Link to="/games">Games</Link>
+            <Link to="/cards">Cards</Link>
           </header>
-          <Route exact path="/games" component={CardsPortfolio} />
+          <Route exact path="/cards" component={CardsPortfolio} />
         </div>
       </div>
     );

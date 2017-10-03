@@ -1,10 +1,16 @@
+// GamesPage - prototype
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { fetchCards } from '../actions/actions';
 import CardsList from './cards-list';
 
 class CardPortfolio extends Component {
+
+  componentDidMount() {
+    this.props.fetchCards();
+  }
 
   render() {
     return (
@@ -18,7 +24,8 @@ class CardPortfolio extends Component {
 }
 
 CardPortfolio.propTypes = {
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  fetchCards: PropTypes.func.isRequired
 }
 
 // mapStateToProps takes some piece of state from redux store
@@ -29,4 +36,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(CardPortfolio);
+export default connect(mapStateToProps, { fetchCards })(CardPortfolio);
