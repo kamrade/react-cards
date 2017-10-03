@@ -20,7 +20,6 @@ class CardPortfolio extends Component {
       </div>
     );
   }
-
 }
 
 CardPortfolio.propTypes = {

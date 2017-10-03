@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
-import CardsPortfolio from './components/card-portfolio';
+import CardPortfolio from './components/card-portfolio';
 
 class App extends Component {
   render() {
@@ -14,7 +14,7 @@ class App extends Component {
             <Link to="/">Home</Link>
             <Link to="/cards">Cards</Link>
           </header>
-          <Route exact path="/cards" component={CardsPortfolio} />
+          <Route exact path="/cards" component={CardPortfolio} />
         </div>
       </div>
     );
