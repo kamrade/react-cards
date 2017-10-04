@@ -1,0 +1,54 @@
+.loader {
+  display: none; }
+
+.form {
+  position: relative; }
+  .form .loading {
+    position: relative; }
+    .form .loading .loader {
+      display: block;
+      content: '';
+      position: absolute;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.89);
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0; }
+      .form .loading .loader::after {
+        content: '';
+        display: block;
+        position: absolute;
+        margin: auto;
+        z-index: 2;
+        background-color: white;
+        width: 24px;
+        height: 24px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 50%;
+        border: 2px dotted #bdbdbe;
+        animation: spin 12s linear infinite; }
+      .form .loading .loader::before {
+        animation: spin 2s linear infinite;
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: 3;
+        background-color: #bdbdbe;
+        height: 8px;
+        width: 3px;
+        border-radius: 1px;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }

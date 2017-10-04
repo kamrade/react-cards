@@ -1,58 +1,115 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { saveCard } from '../actions/actions';
 
+import './card-form.css';
 class CardForm extends Component {
 
   state = {
     curr: '',
     type: '',
     expDate: '',
-    filled: false
+    errors: {},
+    loading: false
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+
+    if(!!this.state.errors[e.target.name]) {
+      // если есть ошибки валидации по текущему полю - удалить эти ошибки из стейта
+      // только по текущему полю
+      let errors = Object.assign({}, this.state.errors);
+      delete errors[e.target.name]
+      this.setState({
+        [e.target.name]: e.target.value,
+        errors
+      });
+
+    } else {
+      // иначе просто установить значение стейта
+      this.setState({ [e.target.name]: e.target.value });
+    }
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    // validation
+    // сначала проверям информацию на валидность
+    let errors = {};
+    if (this.state.curr === '') errors.curr = "Can't be empty";
+    if (this.state.type === '') errors.type = "Can't be empty";
+    if (this.state.expDate === '') errors.expDate = "Can't be empty";
+    // добавляем ошибки в стейт
+    this.setState({ errors });
+    const isValid = Object.keys(errors).length === 0;
+
+    // если в стейте нет ошибок
+    if (isValid) {
+      // а потом забираем значения уже из стейта
+      const { curr, type, expDate } = this.state;
+      // включаем спиннер вместо формы
+      this.setState({ loading: true });
+      this.props.saveCard({ curr, type, expDate})
+    }
   }
 
   render() {
     return (
-      <form>
-        <h2>Add new card</h2>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="curr"
-            name="curr"
-            value={this.state.curr}
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="type"
-            name="type"
-            value={this.state.type}
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="expDate"
-            name="expDate"
-            value={this.state.expDate}
-            onChange={this.handleChange}
-          />
-        </div>
-        { !!this.state.curr && !!this.state.type && !!this.state.expDate &&
-        <div className="form-group">
-          <p className="text-success">Now form is filled</p>
-        </div>}
-        <div className="form-group">
-          <button disabled={!(!!this.state.curr && !!this.state.type && !!this.state.expDate)} className="btn btn-primary btn-sm" type="submit">Submit</button>
+      <form onSubmit={this.handleSubmit} className="form">
+        <div className={classnames({ 'loading': this.state.loading})}>
+          <h2>Add new card</h2>
+          <div className="form-group">
+            <input
+              type="text"
+              className={classnames("form-control form-control-sm", {"is-invalid": !!this.state.errors.curr})}
+              placeholder="curr"
+              name="curr"
+              autoComplete="off"
+              value={this.state.curr}
+              onChange={this.handleChange}
+            />
+            <div className={classnames("invalid-feedback", {"d-none": !this.state.errors.curr})}>
+              Please provide a valid curr.
+            </div>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className={classnames("form-control form-control-sm", {"is-invalid": !!this.state.errors.type})}
+              placeholder="type"
+              name="type"
+              autoComplete="off"
+              value={this.state.type}
+              onChange={this.handleChange}
+            />
+            <div className={classnames("invalid-feedback", {"d-none": !this.state.errors.type})}>
+              Please provide a valid type.
+            </div>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className={classnames("form-control form-control-sm", {"is-invalid": !!this.state.errors.expDate})}
+              placeholder="expDate"
+              name="expDate"
+              autoComplete="off"
+              value={this.state.expDate}
+              onChange={this.handleChange}
+            />
+            <div className={classnames("invalid-feedback", {"d-none": !this.state.errors.expDate})}>
+              Please provide a valid expiration date.
+            </div>
+          </div>
+          { !!this.state.curr && !!this.state.type && !!this.state.expDate &&
+          <div className="form-group">
+            <p className="text-success">Now form is filled</p>
+          </div>}
+          <div className="form-group">
+            <button className="btn btn-primary btn-sm" type="submit">Submit</button>
+          </div>
+          <div className="loader"></div>
         </div>
       </form>
     );
@@ -60,4 +117,6 @@ class CardForm extends Component {
 
 }
 
-export default CardForm;
+// first argument - data from state
+// second argument is object of actions
+export default connect(null, { saveCard })(CardForm);
