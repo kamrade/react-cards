@@ -1,5 +1,16 @@
 export const SET_CARDS = 'SET_CARDS';
 
+// обработка ответов сервера
+function handleResponse(response) {
+  if (response.ok) {
+    return response.json();
+  } else {
+    let error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
+
 export function setCards(cards) {
   return {
     type: SET_CARDS,
@@ -7,7 +18,9 @@ export function setCards(cards) {
   }
 }
 
-// thunk action (функция-преобразователь)
+//
+// thunk actions (функции-преобразователи)
+//
 export function saveCard(data) {
   return dispatch => {
     return fetch('/api/games', {
@@ -18,11 +31,11 @@ export function saveCard(data) {
       headers: {
         "Content-Type": "application/json"
       }
-    })
+      // данные отправлены, получаем ответ
+    }).then(handleResponse)
   }
 }
 
-// Вспомогательные функции
 export function fetchCards() {
   return dispatch => {
     fetch('/api/cards')

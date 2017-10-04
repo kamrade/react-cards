@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { saveCard } from '../actions/actions';
 
+// import { Alert } from 'reactstrap';
+
 import './card-form.css';
 class CardForm extends Component {
 
@@ -51,7 +53,23 @@ class CardForm extends Component {
       const { curr, type, expDate } = this.state;
       // включаем спиннер вместо формы
       this.setState({ loading: true });
-      this.props.saveCard({ curr, type, expDate})
+      // сохраняем карту
+      this.props.saveCard({ curr, type, expDate}).then(
+        // success funciton
+        () => {},
+
+        // function invoke if error
+        // in actions in handleResponse if response not ok
+        // we throw error
+        (err) => err.response.json()
+          .then(({ errors }) => {
+            console.log(errors);
+            this.setState({
+              errors,
+              loading: false
+            })
+          })
+      )
     }
   }
 
@@ -60,6 +78,11 @@ class CardForm extends Component {
       <form onSubmit={this.handleSubmit} className="form">
         <div className={classnames({ 'loading': this.state.loading})}>
           <h2>Add new card</h2>
+
+          {!!this.state.errors.global && <div className="text-danger">
+            {this.state.errors.global}
+          </div>}
+
           <div className="form-group">
             <input
               type="text"
