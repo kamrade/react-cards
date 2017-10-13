@@ -3,8 +3,6 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { saveCard } from '../actions/actions';
 
-// import { Alert } from 'reactstrap';
-
 import './card-form.css';
 class CardForm extends Component {
 
@@ -137,7 +135,6 @@ class CardForm extends Component {
       </form>
     );
   }
-
 }
 
 // first argument - data from state
