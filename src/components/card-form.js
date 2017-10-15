@@ -1,3 +1,7 @@
+// handleChange
+// handleSubmit
+// 
+
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
@@ -51,6 +55,7 @@ class CardForm extends Component {
       const { curr, type, expDate } = this.state;
       // включаем спиннер вместо формы
       this.setState({ loading: true });
+      
       // сохраняем карту
       this.props.saveCard({ curr, type, expDate}).then(
         // success funciton
@@ -77,9 +82,11 @@ class CardForm extends Component {
         <div className={classnames({ 'loading': this.state.loading})}>
           <h2>Add new card</h2>
 
-          {!!this.state.errors.global && <div className="text-danger">
-            {this.state.errors.global}
-          </div>}
+          {!!this.state.errors.global && 
+            <div className="text-danger">
+              {this.state.errors.global}
+            </div>
+          }
 
           <div className="form-group">
             <input
@@ -109,6 +116,7 @@ class CardForm extends Component {
               Please provide a valid type.
             </div>
           </div>
+          
           <div className="form-group">
             <input
               type="text"
@@ -123,14 +131,18 @@ class CardForm extends Component {
               Please provide a valid expiration date.
             </div>
           </div>
+
           { !!this.state.curr && !!this.state.type && !!this.state.expDate &&
           <div className="form-group">
             <p className="text-success">Now form is filled</p>
           </div>}
+          
           <div className="form-group">
             <button className="btn btn-primary btn-sm" type="submit">Submit</button>
           </div>
+          
           <div className="loader"></div>
+
         </div>
       </form>
     );

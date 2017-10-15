@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { fetchCards } from '../actions/actions';
 import CardsList from './cards-list';
 
+
 class CardPortfolio extends Component {
 
   // Когда компонент отрендерился получаем все карты
