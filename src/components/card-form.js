@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { saveCard } from '../actions/actions';
 
 // import { Alert } from 'reactstrap';
@@ -13,7 +14,8 @@ class CardForm extends Component {
     type: '',
     expDate: '',
     errors: {},
-    loading: false
+    loading: false,
+    done: false
   }
 
   handleChange = (e) => {
@@ -56,13 +58,15 @@ class CardForm extends Component {
       // сохраняем карту
       this.props.saveCard({ curr, type, expDate}).then(
         // success funciton
-        () => {},
+
+        () => { this.setState({ done: true }) },
 
         // function invoke if error
         // in actions in handleResponse if response not ok
         // we throw error
         (err) => err.response.json()
           .then(({ errors }) => {
+            console.log('+++ errors +++');
             console.log(errors);
             this.setState({
               errors,
@@ -74,7 +78,7 @@ class CardForm extends Component {
   }
 
   render() {
-    return (
+    const form = (
       <form onSubmit={this.handleSubmit} className="form">
         <div className={classnames({ 'loading': this.state.loading})}>
           <h2>Add new card</h2>
@@ -135,6 +139,11 @@ class CardForm extends Component {
           <div className="loader"></div>
         </div>
       </form>
+    );
+    return (
+      <div>
+        { this.state.done ? <Redirect to="/cards" /> : form }
+      </div>
     );
   }
 

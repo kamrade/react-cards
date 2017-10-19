@@ -23,7 +23,7 @@ export function setCards(cards) {
 //
 export function saveCard(data) {
   return dispatch => {
-    return fetch('/api/games', {
+    return fetch('/api/cards', {
       // options object
       // all fields are required
       method: 'post',

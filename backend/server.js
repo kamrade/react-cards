@@ -1,16 +1,46 @@
 import express from 'express';
 import mongodb from 'mongodb';
+import bodyParser from 'body-parser';
 
 const app = express();
+app.use(bodyParser.json());
 const dbUrl = 'mongodb://localhost/b2bcards';
+
+function validate(data) {
+  // validation
+  // сначала проверям информацию на валидность
+  let errors = {};
+  if (data.curr === '') errors.curr = "Can't be empty";
+  if (data.type === '') errors.type = "Can't be empty";
+  if (data.expDate === '') errors.expDate = "Can't be empty";
+  const isValid = Object.keys(errors).length === 0;
+  return { errors, isValid };
+}
 
 mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   // endpoint to get a cards
   app.get('/api/cards', (req, res) => {
     db.collection('cards').find({}).toArray((err, cards) => {
-      res.json({ cards })
+      res.json({ cards });
     });
+  });
+
+  app.post('/api/cards', (req, res) => {
+    const { errors, isValid} = validate(req.body);
+    if(isValid) {
+      const { curr, type, expDate} = req.body;
+      db.collection('cards').insert({ curr, type, expDate}, (err, result) => {
+        if(err) {
+          res.status(500).json({ errors: { global: "Something went wrong"}})
+        } else {
+          res.json({ game: result.ops[0] })
+        }
+      });
+    } else {
+      res.status(400).json({ errors })
+    }
+
   });
 
   // we want our server to be json API service
