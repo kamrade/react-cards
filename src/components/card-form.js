@@ -76,7 +76,9 @@ class CardForm extends Component {
     const form = (
       <form onSubmit={this.handleSubmit} className="form">
         <div className={classnames({ 'loading': this.state.loading})}>
-          <h2>Add new card</h2>
+          <div className="mb-4">
+            <h2>Add new card</h2>
+          </div>
 
           {!!this.state.errors.global && <div className="text-danger">
             {this.state.errors.global}
