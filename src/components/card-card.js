@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './card-card.css';
+
 export default function CardCard({ card }) {
 
   return (
-    <div className="col-md-4 mb-3">
+    <div className="col-md-3 mb-3">
       <div className="card">
-        <h4 className="card-header">Card</h4>
-        <div className="card-body">
+        <div className="card-header">
+          <h4 className="card-title">Card
+          <small> { card._id.substr(0, 5) } </small></h4>
         </div>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">

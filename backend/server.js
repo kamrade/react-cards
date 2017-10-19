@@ -21,11 +21,11 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   // endpoint to get a cards
   app.get('/api/cards', (req, res) => {
-    setTimeout(() => {
-      db.collection('cards').find({}).toArray((err, cards) => {
-        res.json({ cards });
-      });
-    }, 1000);
+    // setTimeout(() => {
+    db.collection('cards').find({}).toArray((err, cards) => {
+      res.json({ cards });
+    });
+    // }, 1000);
   });
 
   app.post('/api/cards', (req, res) => {
@@ -36,7 +36,7 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
         if(err) {
           res.status(500).json({ errors: { global: "Something went wrong"}})
         } else {
-          res.json({ game: result.ops[0] })
+          res.json({ card: result.ops[0] })
         }
       });
     } else {

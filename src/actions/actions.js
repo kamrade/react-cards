@@ -1,4 +1,5 @@
 export const SET_CARDS = 'SET_CARDS';
+export const ADD_CARD = 'ADD_CARD';
 
 // обработка ответов сервера
 function handleResponse(response) {
@@ -18,9 +19,15 @@ export function setCards(cards) {
   }
 }
 
-//
+export function addCard(card) {
+  return {
+    type: ADD_CARD,
+    card
+  };
+}
+
 // thunk actions (функции-преобразователи)
-//
+
 export function saveCard(data) {
   return dispatch => {
     return fetch('/api/cards', {
@@ -33,6 +40,10 @@ export function saveCard(data) {
       }
       // данные отправлены, получаем ответ
     }).then(handleResponse)
+    .then(data => {
+      console.log(data);
+      return dispatch(addCard(data.card))
+    });
   }
 }
 

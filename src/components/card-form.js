@@ -40,40 +40,35 @@ class CardForm extends Component {
     e.preventDefault();
 
     // validation
-    // сначала проверям информацию на валидность
     let errors = {};
     if (this.state.curr === '') errors.curr = "Can't be empty";
     if (this.state.type === '') errors.type = "Can't be empty";
     if (this.state.expDate === '') errors.expDate = "Can't be empty";
-    // добавляем ошибки в стейт
+    // put errors in the state
     this.setState({ errors });
     const isValid = Object.keys(errors).length === 0;
 
-    // если в стейте нет ошибок
     if (isValid) {
-      // а потом забираем значения уже из стейта
-      const { curr, type, expDate } = this.state;
-      // включаем спиннер вместо формы
+      // get values from the state
+      const { _id, curr, type, expDate } = this.state;
+      // turn on loader
       this.setState({ loading: true });
-      // сохраняем карту
-      this.props.saveCard({ curr, type, expDate}).then(
-        // success funciton
 
-        () => { this.setState({ done: true }) },
+      // if there is ID in the state
+      // this means we in edit mode
+      if (_id) {
+        // this.props.updateCard({ _id, curr, type, expDate })
+        //   .then(() => { this.setState({ done: true }) },
+        //     (err) => err.response.json()
+        //       .then(({ errors }) => this.setState({ errors, loading: false })));
+      // otherwise - we creating form
+      } else {
+        this.props.saveCard({ curr, type, expDate})
+          .then(() => { this.setState({ done: true }) },
+            (err) => err.response.json()
+              .then(({ errors }) => this.setState({ errors, loading: false })));
+      }
 
-        // function invoke if error
-        // in actions in handleResponse if response not ok
-        // we throw error
-        (err) => err.response.json()
-          .then(({ errors }) => {
-            console.log('+++ errors +++');
-            console.log(errors);
-            this.setState({
-              errors,
-              loading: false
-            })
-          })
-      )
     }
   }
 

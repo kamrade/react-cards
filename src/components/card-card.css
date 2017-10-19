@@ -1,0 +1,11 @@
+.card-header {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important; }
+
+.card-title {
+  font-size: 1rem;
+  margin: 0 !important; }
+
+.list-group-item {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important; }
