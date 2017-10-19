@@ -21,9 +21,11 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   // endpoint to get a cards
   app.get('/api/cards', (req, res) => {
-    db.collection('cards').find({}).toArray((err, cards) => {
-      res.json({ cards });
-    });
+    setTimeout(() => {
+      db.collection('cards').find({}).toArray((err, cards) => {
+        res.json({ cards });
+      });
+    }, 1000);
   });
 
   app.post('/api/cards', (req, res) => {

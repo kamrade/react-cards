@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CardCard from './card-card';
 
 // Компонент либо отрендеривает все карты,
 // либо показывает сообщение что карт в базе нет
@@ -10,7 +11,9 @@ export default function CardsList({ cards }) {
   );
 
   const cardsList = (
-    <p>Games List</p>
+    <div className="row">
+      { cards.map(card => <CardCard card={card} key={card._id} />)}
+    </div>
   );
 
   return (
