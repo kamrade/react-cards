@@ -1,6 +1,19 @@
 export const SET_CARDS = 'SET_CARDS';
 export const ADD_CARD = 'ADD_CARD';
 
+// загрузка всех карт и генерация события SET_CARDS
+export function fetchCards() {
+  // МНЕ НЕ ПОНЯТНО ПОЧЕМУ МЫ ПЕРЕДАЕМ
+  // здесь dispatch в функцию
+  // почему просто нельзя сразу написать fetch()
+  // и обращаться к серверу.
+  return dispatch => {
+    fetch('/api/cards')
+      .then(res => res.json())
+      .then(data => dispatch(setCards(data.cards)));
+  }
+}
+
 // обработка ответов сервера
 function handleResponse(response) {
   if (response.ok) {
@@ -39,18 +52,11 @@ export function saveCard(data) {
         "Content-Type": "application/json"
       }
       // данные отправлены, получаем ответ
+      // handleResponse объявлена выше
     }).then(handleResponse)
     .then(data => {
       console.log(data);
       return dispatch(addCard(data.card))
     });
-  }
-}
-
-export function fetchCards() {
-  return dispatch => {
-    fetch('/api/cards')
-      .then(res => res.json())
-      .then(data => dispatch(setCards(data.cards)));
   }
 }

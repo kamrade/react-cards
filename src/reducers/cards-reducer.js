@@ -11,6 +11,8 @@ export default function cards(state = [], action = {}) {
       ];
     case SET_CARDS:
       return action.cards;
+
     default: return state;
+
   }
 }

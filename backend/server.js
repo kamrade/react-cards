@@ -64,8 +64,8 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
       errors: {
         global: "Still working on it. Please try again later when we implement it"
       }
-    })
-  })
+    });
+  });
 
   app.listen(8080, () => console.log('Server is running on port 8080'));
 

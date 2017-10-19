@@ -1,10 +1,12 @@
+// handleChange
+// handleSubmit
+//
+
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { saveCard } from '../actions/actions';
-
-// import { Alert } from 'reactstrap';
 
 import './card-form.css';
 class CardForm extends Component {
@@ -80,9 +82,11 @@ class CardForm extends Component {
             <h2>Add new card</h2>
           </div>
 
-          {!!this.state.errors.global && <div className="text-danger">
-            {this.state.errors.global}
-          </div>}
+          {!!this.state.errors.global &&
+            <div className="text-danger">
+              {this.state.errors.global}
+            </div>
+          }
 
           <div className="form-group">
             <input
@@ -112,6 +116,7 @@ class CardForm extends Component {
               Please provide a valid type.
             </div>
           </div>
+
           <div className="form-group">
             <input
               type="text"
@@ -126,14 +131,18 @@ class CardForm extends Component {
               Please provide a valid expiration date.
             </div>
           </div>
+
           { !!this.state.curr && !!this.state.type && !!this.state.expDate &&
           <div className="form-group">
             <p className="text-success">Now form is filled</p>
           </div>}
+
           <div className="form-group">
             <button className="btn btn-primary btn-sm" type="submit">Submit</button>
           </div>
+
           <div className="loader"></div>
+
         </div>
       </form>
     );
@@ -143,7 +152,6 @@ class CardForm extends Component {
       </div>
     );
   }
-
 }
 
 // first argument - data from state
