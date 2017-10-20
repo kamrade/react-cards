@@ -45,6 +45,13 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   });
 
+  app.get('/api/cards/:_id', (req, res) => {
+
+    db.collection('cards').findOne({ _id: new mongodb.ObjectId(req.params._id) }, (err, card) => {
+      res.json({ card });
+    })
+  });
+
   // we want our server to be json API service
   // we always expected respond with some json
   // and thats not what happens in express by default

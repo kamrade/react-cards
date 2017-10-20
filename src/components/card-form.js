@@ -6,18 +6,34 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { saveCard } from '../actions/actions';
+import { saveCard, fetchCard } from '../actions/actions';
 
 import './card-form.css';
 class CardForm extends Component {
 
   state = {
-    curr: '',
-    type: '',
-    expDate: '',
+    _id: this.props.card ? this.props.card._id : null,
+    curr: this.props.card ? this.props.card.curr : '',
+    type: this.props.card ? this.props.card.type : '',
+    expDate: this.props.card ? this.props.card.expDate : '',
     errors: {},
     loading: false,
     done: false
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      _id: nextProps.card._id,
+      curr: nextProps.card.curr,
+      type: nextProps.card.type,
+      expDate: nextProps.card.expDate,
+    });
+  }
+
+  componentDidMount = () => {
+    if(this.props.match.params._id) {
+      this.props.fetchCard(this.props.match.params._id);
+    }
   }
 
   handleChange = (e) => {
@@ -154,6 +170,15 @@ class CardForm extends Component {
   }
 }
 
+function mapStateToProps(state, props) {
+  if (props.match.params._id) {
+    return {
+      card: state.cards.find(item => item._id === props.match.params._id)
+    };
+  }
+  return { card: null };
+}
+
 // first argument - data from state
 // second argument is object of actions
-export default connect(null, { saveCard })(CardForm);
+export default connect(mapStateToProps, { saveCard, fetchCard })(CardForm);

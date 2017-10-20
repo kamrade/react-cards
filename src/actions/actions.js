@@ -1,16 +1,21 @@
 export const SET_CARDS = 'SET_CARDS';
 export const ADD_CARD = 'ADD_CARD';
+export const CARD_FETCHED = 'CARD_FETCHED';
 
 // загрузка всех карт и генерация события SET_CARDS
 export function fetchCards() {
-  // МНЕ НЕ ПОНЯТНО ПОЧЕМУ МЫ ПЕРЕДАЕМ
-  // здесь dispatch в функцию
-  // почему просто нельзя сразу написать fetch()
-  // и обращаться к серверу.
   return dispatch => {
     fetch('/api/cards')
       .then(res => res.json())
       .then(data => dispatch(setCards(data.cards)));
+  }
+}
+
+export function fetchCard(id) {
+  return dispatch => {
+    fetch(`/api/cards/${id}`)
+      .then(res => res.json())
+      .then(data => dispatch(cardFetched(data.card)));
   }
 }
 
@@ -37,6 +42,13 @@ export function addCard(card) {
     type: ADD_CARD,
     card
   };
+}
+
+export function cardFetched(card) {
+  return {
+    type: CARD_FETCHED,
+    card
+  }
 }
 
 // thunk actions (функции-преобразователи)

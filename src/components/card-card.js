@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './card-card.css';
 
@@ -13,16 +14,14 @@ export default function CardCard({ card }) {
           <small> { card._id.substr(0, 5) } </small></h4>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            { card.curr }
-          </li>
-          <li className="list-group-item">
-            { card.type }
-          </li>
-          <li className="list-group-item">
-            { card.expDate }
-          </li>
+          <li className="list-group-item">{ card.curr }</li>
+          <li className="list-group-item">{ card.type }</li>
+          <li className="list-group-item">{ card.expDate }</li>
         </ul>
+        <div className="card-footer">
+          <Link to={`/card/${card._id}`} className="btn btn-sm btn-link">Edit</Link>
+          {/* <button className="btn btn-sm btn-link text-danger">Delete</button> */}
+        </div>
       </div>
     </div>
   )

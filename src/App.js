@@ -28,6 +28,7 @@ class App extends Component {
         <div className="container">
           <Route exact path="/cards" component={CardPortfolio} />
           <Route exact path="/cards/new" component={CardForm} />
+          <Route exact path="/card/:_id" component={CardForm} />
         </div>
 
       </div>
