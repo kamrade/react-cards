@@ -1,7 +1,3 @@
-// handleChange
-// handleSubmit
-//
-
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';

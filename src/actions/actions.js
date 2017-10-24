@@ -56,8 +56,6 @@ export function cardFetched(card) {
 export function saveCard(data) {
   return dispatch => {
     return fetch('/api/cards', {
-      // options object
-      // all fields are required
       method: 'post',
       body: JSON.stringify(data),
       headers: {
@@ -65,9 +63,9 @@ export function saveCard(data) {
       }
       // данные отправлены, получаем ответ
       // handleResponse объявлена выше
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
     .then(data => {
-      console.log(data);
       return dispatch(addCard(data.card))
     });
   }

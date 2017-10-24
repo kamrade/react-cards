@@ -8,7 +8,6 @@ const dbUrl = 'mongodb://localhost/b2bcards';
 
 function validate(data) {
   // validation
-  // сначала проверям информацию на валидность
   let errors = {};
   if (data.curr === '') errors.curr = "Can't be empty";
   if (data.type === '') errors.type = "Can't be empty";
@@ -21,13 +20,12 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   // endpoint to get a cards
   app.get('/api/cards', (req, res) => {
-    // setTimeout(() => {
     db.collection('cards').find({}).toArray((err, cards) => {
       res.json({ cards });
     });
-    // }, 1000);
   });
 
+  // return all cards
   app.post('/api/cards', (req, res) => {
     const { errors, isValid} = validate(req.body);
     if(isValid) {
@@ -45,6 +43,7 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   });
 
+  // return card by ID
   app.get('/api/cards/:_id', (req, res) => {
 
     db.collection('cards').findOne({ _id: new mongodb.ObjectId(req.params._id) }, (err, card) => {

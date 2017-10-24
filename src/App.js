@@ -15,6 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        
         <div className="container mb-3">
           <header className="header">
             <h1>React App</h1>
@@ -25,6 +26,7 @@ class App extends Component {
             </div>
           </header>
         </div>
+
         <div className="container">
           <Route exact path="/cards" component={CardPortfolio} />
           <Route exact path="/cards/new" component={CardForm} />

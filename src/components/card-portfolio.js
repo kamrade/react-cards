@@ -38,6 +38,7 @@ CardPortfolio.propTypes = {
 // and pass it to component as prop
 function mapStateToProps(state) {
   return {
+    test: 'Bla bla bla',
     cards: state.cards
   }
 }

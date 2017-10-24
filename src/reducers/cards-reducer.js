@@ -3,8 +3,6 @@ import { SET_CARDS, ADD_CARD, CARD_FETCHED } from '../actions/actions';
 export default function cards(state = [], action = {}) {
   switch (action.type) {
     case ADD_CARD:
-      // console.log(action.card);
-      // undefined
       return [
         ...state,
         action.card
